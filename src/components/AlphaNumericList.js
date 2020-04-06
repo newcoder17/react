@@ -12,7 +12,7 @@ class AlphaNumericList extends Component {
     render() {
         return (
             <div>
-                <BootstrapTable hover striped scrollTable bodyStyle={{ overflowY: 'scroll', maxHeight: '400px' }}
+                <BootstrapTable hover striped scrollTable bodyStyle={{ overflowY: 'scroll', maxHeight: '500px' }}
                     data={this.props.data}
                     pagination>
                     <TableHeaderColumn dataAlign='center' headerAlign='center' tdStyle={{ whiteSpace: 'normal', textAlign: 'center' }} thStyle={{ 'color': 'white', background: '#215E95' }} headerColor='white' dataField='id' isKey={true}> S.No.</TableHeaderColumn>

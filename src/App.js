@@ -26,7 +26,7 @@ class App extends Component {
     this.setState({ state });
     debugger;
     if (searchInput !== '') {
-      var url = "http://192.168.0.29:8080/api/v1/records/" + searchInput + "?pSize=1000000";
+      var url = "http://localhost:8080/api/v1/records/" + searchInput + "?pSize=1000000";
       this.serviceRequest(url);
     }
   }
