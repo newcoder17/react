@@ -11,13 +11,13 @@ class AlphaNumericList extends Component {
     state = {}
     render() {
         return (
-            <div className="col-4">
-    <BootstrapTable
-          data={ this.props.droplets }
-          pagination>
-          <TableHeaderColumn dataAlign='center' headerAlign='center' dataField='id' isKey={ true }> SNo</TableHeaderColumn>
-          <TableHeaderColumn dataAlign='center' headerAlign='center' dataField='combination'>List</TableHeaderColumn>
-        </BootstrapTable>
+            <div>
+                <BootstrapTable hover striped scrollTable bodyStyle={{ overflowY: 'scroll', maxHeight: '400px' }}
+                    data={this.props.data}
+                    pagination>
+                    <TableHeaderColumn dataAlign='center' headerAlign='center' tdStyle={{ whiteSpace: 'normal', textAlign: 'center' }} thStyle={{ 'color': 'white', background: '#215E95' }} headerColor='white' dataField='id' isKey={true}> S.No.</TableHeaderColumn>
+                    <TableHeaderColumn dataAlign='center' headerAlign='center' thStyle={{ 'color': 'white', background: '#215E95' }} dataField='combination'>List</TableHeaderColumn>
+                </BootstrapTable>
 
             </div>
         );

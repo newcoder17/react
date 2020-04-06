@@ -6,22 +6,39 @@ class Search extends Component {
         super(props);
     }
     state = {}
-    onSearch = (value) => {
-        debugger;
-        console.log("Clicked" + value);
-        this.props.onSearchInput(value);
+    onSearch = (input) => {
+       if(this.validateInput(input)){
+        this.props.onSearchInput(input);
+       }
     }
+
+    validateInput(input) {
+        if (input.length == 7 || input.length == 10) {
+            var numbers = /^[0-9]+$/;
+            if (input.match(numbers)) {
+                return true;
+            }
+            else {
+                alert('Please input numeric characters only');
+                return false;
+            }
+        } else {
+            alert("Please enter a phone number with length 7 or 10!");
+            return false;
+        }
+    }
+
     render() {
-        return (<div className="col-10 m-5">
+        return (<div className="col-10 m-5 d-flex justify-content-center " >
             <div>
-                <label className="mr-5" style={{ color: "blue" }}>ENTER PHONE NUMBER : </label>
-                <SearchField
+                <strong><label className="m-2" >ENTER PHONE NUMBER : </label></strong>
+                <SearchField 
                     placeholder="Search..."
                     onSearchClick={this.onSearch}
                     classNames="test-class"
                 />
             </div>
-            <h6><div><label className="m-2">Total Number of Records: </label>{this.props.totalRecords} </div></h6>
+            <div><strong><label className="ml-4  mr-2 mt-2 mb-2">TOTAL COMBINATIONS :  {this.props.totalRecords}</label> </strong></div>
         </div>);
     }
 }

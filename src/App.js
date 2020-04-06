@@ -5,23 +5,28 @@ import './App.css';
 import Search from './components/Search';
 import AlphaNumericList from './components/AlphaNumericList';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Spinner from 'react-bootstrap/Spinner';
+import Button from 'react-bootstrap/Button';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      droplets: [],
+      data: [],
       totalRecords: 0,
-      searchInput: ''
+      searchInput: '',
+      isLoading: false
     }
   }
 
   handleSearchInput = (searchInput) => {
+    let state = this.state;
+    state.isLoading = true;
+    state.searchInput = searchInput;
+    this.setState({ state });
     debugger;
-    this.setState({ searchInput });
-
     if (searchInput !== '') {
-      var url = "http://localhost:8080/api/v1/records/" + searchInput + "?pSize=1000000";
+      var url = "http://192.168.0.29:8080/api/v1/records/" + searchInput + "?pSize=1000000";
       this.serviceRequest(url);
     }
   }
@@ -40,22 +45,27 @@ class App extends Component {
       })
       .then(res => res.json())
       .then(json => json.data)
-      .then(result => this.setState({ 'droplets': result.combinations, 'totalRecords': result.size }))
+      .then(result => this.setState({ 'data': result.combinations, 'totalRecords': result.size, 'isLoading': false }))
+  }
 
-  }
-  componentDidMount() {
-    debugger;
-    // if (this.state.searchInput != '')
-    //   fetch('http://localhost:8080/api/v1/records/' + this.state.searchInput + '?pSize=50')
-    //     // fetch('http://www.mocky.io/v2/5e8a0eb12d000062001a44fb')
-    //     .then(res => res.json())
-    //     .then(json => json.data)
-    //     .then(result => this.setState({ 'droplets': result.combinations, 'totalRecords': result.size }))
-  }
   render() {
     return (<div className="container" >
       <Search totalRecords={this.state.totalRecords} onSearchInput={this.handleSearchInput} />
-      <AlphaNumericList droplets={this.state.droplets} />
+      {this.state.isLoading ?
+      <div className="d-flex justify-content-center">
+        <Button variant="primary" disabled>
+          <Spinner
+            as="span"
+            animation="grow"
+            size="sm"
+            role="status"
+            aria-hidden="true"
+          />
+                     Loading...
+                    </Button>
+                    </div> :
+        <AlphaNumericList data={this.state.data} />
+      }
     </div>);
   }
 }
